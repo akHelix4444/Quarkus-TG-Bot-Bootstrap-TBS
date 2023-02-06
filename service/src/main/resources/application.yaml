@@ -1,0 +1,10 @@
+"%dev":
+  quarkus:
+    http:
+      port: 8844
+
+bot:
+  telegram:
+    my-telegram-bot:
+      username: "h4qMyTelegramBot"
+      token: "6104687029:AAH_CL905OcD4ZahoQtbEt3GAaG91P547Rk"

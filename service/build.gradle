@@ -1,0 +1,88 @@
+plugins {
+    id "java"
+    id "io.quarkus"
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+group "org.helix4444.quarkus"
+version "1.0.0-SNAPSHOT"
+
+ext {
+    quarkusPlatformGroupId = project.getProperty("quarkusPlatformGroupId")
+    quarkusPlatformArtifactId = project.getProperty("quarkusPlatformArtifactId")
+    quarkusPlatformVersion = project.getProperty("quarkusPlatformVersion")
+
+    telegramBotsVersion = project.getProperty("telegramBotsVersion")
+
+    mapStructVersion = project.getProperty("mapStructVersion")
+    lombokVersion = project.getProperty("lombokVersion")
+    lombokMapStructBindingVersion = project.getProperty("lombokMapStructBindingVersion")
+
+    googleGuavaCoreVersion = project.getProperty("googleGuavaCoreVersion")
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    // Platform
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+
+    // Core
+    implementation "io.quarkus:quarkus-arc"
+    implementation "io.quarkus:quarkus-config-yaml"
+
+    implementation "io.quarkus:quarkus-smallrye-health"
+
+    // Telegram bot library
+    implementation "org.telegram:telegrambots:${telegramBotsVersion}"
+
+    // Lombok & MapStruct
+    compileOnly "org.mapstruct:mapstruct:${mapStructVersion}"
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapStructVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:${lombokMapStructBindingVersion}"
+
+    // Additional utils
+    implementation "com.google.guava:guava:${googleGuavaCoreVersion}"
+
+    // Test scope
+    testImplementation "io.quarkus:quarkus-junit5"
+
+    // Lombok & MapStruct
+    testCompileOnly "org.mapstruct:mapstruct:${mapStructVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapStructVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok-mapstruct-binding:${lombokMapStructBindingVersion}"
+}
+
+test {
+    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+
+    ignoreFailures = true
+
+    useJUnitPlatform()
+
+    testLogging {
+        showStandardStreams = true
+        events = ["passed", "failed", "skipped"]
+    }
+}
