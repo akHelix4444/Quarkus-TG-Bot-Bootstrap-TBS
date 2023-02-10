@@ -1,10 +1,23 @@
+quarkus:
+  http:
+    port: 8080
+
+  datasource:
+    db-kind: postgresql
+
 "%dev":
   quarkus:
     http:
       port: 8844
 
+    hibernate-orm:
+      database:
+        generation: drop-and-create
+      log:
+        sql: true
+
 bot:
   telegram:
     my-telegram-bot:
-      username: "h4qMyTelegramBot"
-      token: "6104687029:AAH_CL905OcD4ZahoQtbEt3GAaG91P547Rk"
+      username: "H4QuarkusTestBot"
+      token: "6101969750:AAGJj37Xz0yM9tY0l36v5TyY-1dLiE5cwUk"

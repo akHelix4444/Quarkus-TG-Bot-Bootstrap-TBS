@@ -1,8 +1,9 @@
-package org.helix4444.quarkus.tgbot;
+package org.helix4444.quarkus.tgbot.main;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import org.helix4444.quarkus.tgbot.bot.MyTelegramBot;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -18,7 +19,7 @@ public class BotRegistrator {
     MyTelegramBot myTelegramBot;
 
     @PostConstruct
-    public void telegramBotRegistration() {
+    protected void telegramBotRegistration() {
         this.registerTelegramBot(this.myTelegramBot);
     }
 

@@ -53,6 +53,13 @@ dependencies {
     // Telegram bot library
     implementation "org.telegram:telegrambots:${telegramBotsVersion}"
 
+    // Panache (PostgreSQL)
+    implementation "io.quarkus:quarkus-hibernate-orm-panache"
+    annotationProcessor "io.quarkus:quarkus-panache-common"
+
+    implementation "io.quarkus:quarkus-jdbc-postgresql"
+    implementation "io.quarkus:quarkus-elytron-security-common"
+
     // Lombok & MapStruct
     compileOnly "org.mapstruct:mapstruct:${mapStructVersion}"
     compileOnly "org.projectlombok:lombok:${lombokVersion}"

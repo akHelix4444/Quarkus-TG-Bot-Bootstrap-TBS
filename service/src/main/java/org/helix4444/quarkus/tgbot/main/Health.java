@@ -1,4 +1,4 @@
-package org.helix4444.quarkus.tgbot;
+package org.helix4444.quarkus.tgbot.main;
 
 import io.quarkus.logging.Log;
 import org.eclipse.microprofile.health.HealthCheck;
