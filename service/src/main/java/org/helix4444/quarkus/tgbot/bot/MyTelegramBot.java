@@ -26,7 +26,7 @@ public class MyTelegramBot
     @ConfigProperty(name = "bot.telegram.my-telegram-bot.token")
     String token;
 
-    private final Map<Long, UserFormState> chatId2StateMap = synchronizedMap(new HashMap<>());
+    private final Map<Long, UserFormState> chatId2State = synchronizedMap(new HashMap<>());
     private final Map<Long, String> chatId2Command = synchronizedMap(new HashMap<>());
 
     @Inject
@@ -51,7 +51,7 @@ public class MyTelegramBot
             var chatId = update.getMessage().getChatId();
             var userMessage = update.getMessage().getText();
 
-            var prevState = this.chatId2StateMap.get(chatId);
+            var prevState = this.chatId2State.get(chatId);
             var command = this.chatId2Command.get(chatId);
 
             Log.infov("Before update: state - {0}, command - {1}", prevState, command);
@@ -61,7 +61,7 @@ public class MyTelegramBot
                 this.chatId2Command.put(chatId, command);
 
                 prevState = UserFormState.START;
-                this.chatId2StateMap.put(chatId, prevState);
+                this.chatId2State.put(chatId, prevState);
             }
 
             if (USER_FORM_WORD.equals(command)) {
@@ -80,11 +80,11 @@ public class MyTelegramBot
 
     private void resetFinalState(Long chatId, UserFormState state) {
         if (FINISH.equals(state)) {
-            this.chatId2StateMap.remove(chatId);
+            this.chatId2State.remove(chatId);
             var lastCommand = this.chatId2Command.remove(chatId);
             Log.infov("Clear data: command - {0}", lastCommand);
         } else {
-            this.chatId2StateMap.computeIfPresent(chatId, (k, v) -> state);
+            this.chatId2State.computeIfPresent(chatId, (k, v) -> state);
         }
     }
 
