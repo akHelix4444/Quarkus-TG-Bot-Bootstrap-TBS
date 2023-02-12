@@ -19,5 +19,5 @@ quarkus:
 bot:
   telegram:
     my-telegram-bot:
-      username: "H4QuarkusTestBot"
-      token: "6101969750:AAGJj37Xz0yM9tY0l36v5TyY-1dLiE5cwUk"
+      username: "<bot-username>"
+      token: "<bot-token>"
